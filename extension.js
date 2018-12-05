@@ -7,7 +7,6 @@ const fs = require("fs");
 const exists = fs.existsSync;
 
 const defaultConsolePath = vscode.workspace.rootPath+"/bin/console";
-// const defaultConsolePath = "/Users/simon/Sites/evvc-api/bin/console";
 let consolePath = defaultConsolePath;
 let sc = null;
 
