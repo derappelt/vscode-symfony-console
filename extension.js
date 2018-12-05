@@ -53,7 +53,6 @@ function getAvailableCommands() {
 
 
 function runCommand(){
-  console.log(consolePath, exists(consolePath));
   if(exists(consolePath)){
     const commands = getAvailableCommands();
     const categorys = Object.keys(commands);
@@ -64,6 +63,9 @@ function runCommand(){
           const cmd = commandLine.slice(0, commandLine.indexOf(' '));
           const command = `${category}:${cmd} ${params}`;
           sc = (sc) ? sc : vscode.window.createTerminal('Symfony Console');
+          if (vscode.window.terminals.findIndex(termial => termial._id === sc._id) === -1){
+            sc = vscode.window.createTerminal('Symfony Console');
+          }
           sc.show();
           sc.sendText(`${consolePath} ${command}`)
         })
