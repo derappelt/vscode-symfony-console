@@ -3,11 +3,12 @@
 const vscode = require("vscode");
 const exec = require("child_process").execSync;
 const fs = require("fs");
+const path = require("path");
 
 const exists = fs.existsSync;
 
-const defaultConsolePath = vscode.workspace.rootPath+"/bin/console";
-let consolePath = defaultConsolePath;
+const defaultConsolePath = "./bin/console";
+let consolePath = path.resolve(vscode.workspace.rootPath || '', defaultConsolePath);
 let sc = null;
 
 // this method is called when your extension is activated
@@ -73,10 +74,10 @@ function runCommand(){
       });
     });
   } else {
-    vscode.window.showInputBox({prompt:'specify console path'}).then(path=>{
-      consolePath = (path !== '') ? path : defaultConsolePath;
-      consolePath = (consolePath.indexOf('.') === 0) ? consolePath.replace('.', vscode.workspace.rootPath) : consolePath;
-      (path !== '') ? runCommand() : null;
+    vscode.window.showInputBox({prompt:'specify console path'}).then((tmpPath = '')=>{
+      const newPath = (tmpPath !== '') ? tmpPath.replace('~', process.env.HOME) : defaultConsolePath;
+      consolePath = path.resolve(vscode.workspace.rootPath || '', newPath);
+      (tmpPath !== '') ? runCommand() : null;
     });
   }
 }
