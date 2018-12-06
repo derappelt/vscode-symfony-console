@@ -2,7 +2,7 @@
     "name": "symfony-console",
     "displayName": "Symfony Console",
     "description": "Use Symfony Console from VS Code Command Palette",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "publisher": "derappelt",
     "engines": {
         "vscode": "^1.29.0"
